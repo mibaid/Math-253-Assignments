@@ -9,3 +9,33 @@ Your work goes here ...
 ```{r}
 scoreActivity::score253(3)
 ```
+
+## Task 1 
+
+```{r}
+data(College, package = "ISLR")
+```
+
+## Task 2 
+
+```{r}
+#library(dplyr)
+#College <- 
+#  College %>% 
+#  mutate(yield = enroll/accept)
+
+College$Yield = College$Enroll/College$Accept 
+```
+
+## Task 3 
+
+```{r}
+all_indices = c(1:nrow(College))
+
+
+train_indices = sample(all_indices, 200)
+
+test_indices = setdiff(all_indices, train_indices)
+```
+
+
