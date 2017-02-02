@@ -43,6 +43,11 @@ lines(c(0,100), c(-10,8), col = 'green', lwd = 3)
 ```
 
 * polygon  
+```{r}
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+polygon(c(0,40,40), c(-10,-10,10 ), col = 'tomato')
+```
+
 
 * text
 ```{r}
