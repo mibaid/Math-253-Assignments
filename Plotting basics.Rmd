@@ -1,0 +1,56 @@
+---
+title: "Plotting Basics"
+author: "Muath Ibaid"
+date: "2/2/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(lattice)
+library(ggplot2)
+```
+
+
+## Graphics funamentals:
+
+* plot: Sets up the axes and puts things in them.
+```{r}
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+```
+
+* points 
+```{r}
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+points(40, -5, pch = 20, col = 'seagreen4')
+points(60, 5, pch = 20, col = 'seagreen4')
+
+#alternatively: 
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+points(c(40,60), c(-5,5), pch = 20, col = 'seagreen4')
+
+
+```
+
+* lines 
+```{r}
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+lines(c(40,60,70,20), c(-5,5, 5, 10), col = 'red')
+lines(c(0,100), c(-10,8), col = 'green', lwd = 3)
+```
+
+* polygon  
+
+* text
+```{r}
+plot(1, type = 'n', xlim = c(0,100), ylim = c(-10,10))
+text(40, 0, "hello", col = 'blue')
+text(20, 5, "goodby", col = 'red')
+
+```
+
+
+

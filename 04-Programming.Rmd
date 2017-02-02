@@ -1,8 +1,8 @@
 # In-Class Programming Activity, Day 4
 
-Your work goes here ...
-
-
+---
+Author: Muath Ibaid
+---
 
 ## Test statements
 

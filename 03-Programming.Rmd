@@ -1,6 +1,9 @@
 # In-Class Programming Activity, Day 3
 
-Your work goes here ...
+---
+title: "In class 3"
+author: "Muath Ibaid"
+---
 
 
 
@@ -24,7 +27,7 @@ data(College, package = "ISLR")
 #  College %>% 
 #  mutate(yield = enroll/accept)
 
-College$Yield = College$Enroll/College$Accept 
+College$Yield = College$Enroll/College$Accept
 ```
 
 ## Task 3 
