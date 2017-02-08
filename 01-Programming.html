@@ -124,31 +124,13 @@ $(document).ready(function () {
 <div id="muath-ibaid" class="section level2">
 <h2>Muath Ibaid</h2>
 </div>
-<div id="test-statements" class="section level2">
-<h2>Test statements</h2>
-<pre class="r"><code>scoreActivity::score253(1)</code></pre>
-<pre><code>## --------
-## Running test statements for day  01</code></pre>
-<pre><code>## Loading required package: scoreActivity</code></pre>
-<pre><code>## Loading required package: lazyeval</code></pre>
-<pre><code>## FAILED: &quot;package:mosaic&quot; %in% search()
-## ERROR when running  check(TRUE, is.character(task2))
-## ERROR when running  check(TRUE, grepl(&quot;^Today is&quot;, task2) &amp;&amp; grepl(&quot;201.$&quot;, task2))
-## ERROR when running  check(TRUE, all(task3a %in% names(mosaicData::Galton)))
-## ERROR when running  check(nrow(mosaicData::Galton), task3b)
-## ERROR when running  check(about(mean(mosaicData::Galton$height)), task3c)
-## ERROR when running  check(TRUE, all(dim(task4) == c(2, 3)))
-## ERROR when running  check(TRUE, max(task5x) &lt;= 1 &amp;&amp; min(task5x) &gt;= 0)
-## ERROR when running  check(TRUE, max(task5y) &lt;= 1 &amp;&amp; min(task5y) &gt;= 0)
-## ERROR when running  check(about(pi, pm = 0.5), task5pi)</code></pre>
-</div>
 <div id="task-1" class="section level2">
 <h2>Task 1</h2>
 <pre class="r"><code>library(mosaicData)</code></pre>
 </div>
 <div id="task-2" class="section level2">
 <h2>Task 2</h2>
-<pre class="r"><code>task2 = paste( &quot;Today is&quot;, Sys.time())</code></pre>
+<pre class="r"><code>task2 = paste( &quot;Today is&quot;, date())</code></pre>
 </div>
 <div id="task-3" class="section level2">
 <h2>Task 3</h2>
@@ -167,7 +149,25 @@ task3c = mean(Galton$height)</code></pre>
 <pre class="r"><code>task5x = runif(1000, 0,1)
 task5y = runif(1000, 0,1)
 
-#task5pi = </code></pre>
+task5pi = 4 * mean(sqrt(task5x^2 + task5y^2)&lt;=1)</code></pre>
+</div>
+<div id="test-statements" class="section level2">
+<h2>Test statements</h2>
+<pre class="r"><code>scoreActivity::score253(1)</code></pre>
+<pre><code>## --------
+## Running test statements for day  01</code></pre>
+<pre><code>## Loading required package: scoreActivity</code></pre>
+<pre><code>## Loading required package: lazyeval</code></pre>
+<pre><code>## passed: &quot;package:mosaic&quot; %in% search()
+## passed: is.character(task2)
+## passed: grepl(&quot;^Today is&quot;, task2) &amp;&amp; grepl(&quot;201.$&quot;, task2)
+## passed: all(task3a %in% names(mosaicData::Galton))
+## passed: task3b
+## passed: task3c
+## passed: all(dim(task4) == c(2, 3))
+## passed: max(task5x) &lt;= 1 &amp;&amp; min(task5x) &gt;= 0
+## passed: max(task5y) &lt;= 1 &amp;&amp; min(task5y) &gt;= 0
+## passed: task5pi</code></pre>
 </div>
 </div>
 
