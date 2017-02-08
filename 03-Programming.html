@@ -124,27 +124,10 @@ $(document).ready(function () {
 
 <div id="in-class-programming-activity-day-3" class="section level1">
 <h1>In-Class Programming Activity, Day 3</h1>
-<div id="test-statements" class="section level2">
-<h2>Test statements</h2>
-<pre class="r"><code>scoreActivity::score253(3)</code></pre>
-<pre><code>## --------
-## Running test statements for day  03</code></pre>
-<pre><code>## Loading required package: scoreActivity</code></pre>
-<pre><code>## Loading required package: lazyeval</code></pre>
-<pre><code>## FAILED: &quot;package:ISLR&quot; %in% search()
-## ERROR when running  check(TRUE, &quot;Yield&quot; %in% names(College))
-## FAILED: object &quot;test_indices&quot; doesn't exist.
-## FAILED: object &quot;train_indices&quot; doesn't exist.
-## ERROR when running  check(TRUE, all(names(College) %in% names(Train_data)))
-## FAILED: object &quot;MSE_test&quot; doesn't exist.
-## ERROR when running  check(TRUE, MSE_train &gt; 0)
-## ERROR when running  check(TRUE, inherits(Yield_mod1, &quot;lm&quot;))
-## FAILED: object &quot;fhat_train&quot; doesn't exist.
-## FAILED: object &quot;fhat_test&quot; doesn't exist.</code></pre>
-</div>
 <div id="task-1" class="section level2">
 <h2>Task 1</h2>
-<pre class="r"><code>data(College, package = &quot;ISLR&quot;)</code></pre>
+<pre class="r"><code>library(ISLR)
+data(College, package = &quot;ISLR&quot;)</code></pre>
 </div>
 <div id="task-2" class="section level2">
 <h2>Task 2</h2>
@@ -159,10 +142,52 @@ College$Yield = College$Enroll/College$Accept</code></pre>
 <h2>Task 3</h2>
 <pre class="r"><code>all_indices = c(1:nrow(College))
 
-
 train_indices = sample(all_indices, 200)
 
-test_indices = setdiff(all_indices, train_indices)</code></pre>
+test_indices = setdiff(all_indices, train_indices)
+
+Train_data= College[train_indices,]
+
+Test_data = College[test_indices,]</code></pre>
+</div>
+<div id="task-4" class="section level2">
+<h2>Task 4</h2>
+<pre class="r"><code>Yield_mod1 &lt;- lm(Yield ~ Top10perc + Outstate + Expend,
+                 data=Train_data)</code></pre>
+</div>
+<div id="task-5" class="section level2">
+<h2>Task 5</h2>
+<pre class="r"><code>Y_train = Train_data$Yield
+
+fhat_train = predict(Yield_mod1, newdata = Train_data )
+
+MSE_train = mean( (Y_train - fhat_train)^2 )</code></pre>
+</div>
+<div id="task-6" class="section level2">
+<h2>Task 6</h2>
+<pre class="r"><code>Y_test = Test_data$Yield
+
+fhat_test = predict(Yield_mod1, newdata = Test_data )
+
+MSE_test = mean( (Y_test - fhat_test)^2 )</code></pre>
+</div>
+<div id="test-statements" class="section level2">
+<h2>Test statements</h2>
+<pre class="r"><code>scoreActivity::score253(3)</code></pre>
+<pre><code>## --------
+## Running test statements for day  03</code></pre>
+<pre><code>## Loading required package: scoreActivity</code></pre>
+<pre><code>## Loading required package: lazyeval</code></pre>
+<pre><code>## passed: &quot;package:ISLR&quot; %in% search()
+## passed: &quot;Yield&quot; %in% names(College)
+## passed: object &quot;test_indices&quot; exists
+## passed: object &quot;train_indices&quot; exists
+## passed: all(names(College) %in% names(Train_data))
+## passed: object &quot;MSE_test&quot; exists
+## passed: MSE_train &gt; 0
+## passed: inherits(Yield_mod1, &quot;lm&quot;)
+## passed: object &quot;fhat_train&quot; exists
+## passed: object &quot;fhat_test&quot; exists</code></pre>
 </div>
 </div>
 
