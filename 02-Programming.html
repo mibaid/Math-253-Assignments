@@ -124,24 +124,6 @@ $(document).ready(function () {
 </div>
 <div id="author-muath-ibaid" class="section level1">
 <h1>Author: Muath Ibaid</h1>
-<div id="test-statements" class="section level2">
-<h2>Test statements</h2>
-<pre class="r"><code>scoreActivity::score253(2)</code></pre>
-<pre><code>## --------
-## Running test statements for day  02</code></pre>
-<pre><code>## Loading required package: scoreActivity</code></pre>
-<pre><code>## Loading required package: lazyeval</code></pre>
-<pre><code>## FAILED: object &quot;Auto&quot; doesn't exist.
-## ERROR when running  check(TRUE, is.character(auto_file_name))
-## FAILED: object &quot;task3&quot; doesn't exist.
-## FAILED: &quot;package:ISLR&quot; %in% search()
-## ERROR when running  check(5, nrow(task5top))
-## ERROR when running  check(3, ncol(task5top))
-## ERROR when running  check(5, nrow(task5bottom))
-## ERROR when running  check(3, ncol(task5bottom))
-## ERROR when running  check(TRUE, task5top[5, 3] == Auto[5, 3])
-## ERROR when running  check(TRUE, task5bottom[5, 3] == Auto[nrow(Auto), ncol(Auto)])</code></pre>
-</div>
 <div id="task-1" class="section level2">
 <h2>Task 1</h2>
 <pre class="r"><code>#download.file(&quot;http://www-bcf.usc.edu/~gareth/ISL/Auto.csv&quot;, destfile = &quot;Auto.csv&quot;)</code></pre>
@@ -169,6 +151,24 @@ $(document).ready(function () {
 <pre class="r"><code>task5top = Auto[1:5, 1:3]
 
 task5bottom = Auto[393:397, 7:9]</code></pre>
+</div>
+<div id="test-statements" class="section level2">
+<h2>Test statements</h2>
+<pre class="r"><code>scoreActivity::score253(2)</code></pre>
+<pre><code>## --------
+## Running test statements for day  02</code></pre>
+<pre><code>## Loading required package: scoreActivity</code></pre>
+<pre><code>## Loading required package: lazyeval</code></pre>
+<pre><code>## passed: object &quot;Auto&quot; exists
+## passed: is.character(auto_file_name)
+## passed: object &quot;task3&quot; exists
+## passed: &quot;package:ISLR&quot; %in% search()
+## passed: nrow(task5top)
+## passed: ncol(task5top)
+## passed: nrow(task5bottom)
+## passed: ncol(task5bottom)
+## passed: task5top[5, 3] == Auto[5, 3]
+## passed: task5bottom[5, 3] == Auto[nrow(Auto), ncol(Auto)]</code></pre>
 </div>
 </div>
 

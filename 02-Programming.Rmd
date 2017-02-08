@@ -3,13 +3,6 @@
 # Author: Muath Ibaid
 
 
-## Test statements
-
-```{r}
-scoreActivity::score253(2)
-```
-
-
 ## Task 1
 
 ```{r}
@@ -47,6 +40,14 @@ task5top = Auto[1:5, 1:3]
 task5bottom = Auto[393:397, 7:9]
 ```
 
+
+
+
+## Test statements
+
+```{r}
+scoreActivity::score253(2)
+```
 
 
 
