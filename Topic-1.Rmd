@@ -1,2 +1,104 @@
 # Topic 1 Exercises
 
+---
+author: Muath Ibaid
+date: 02/09/2017
+---
+
+# ISLR 2.4.1: 
+
+#### (a) A flexible statistical learning method will be better. With the large number of n, a more flexible model will be able to match the data given our small p. A more flexible model is able to reduce the "reducible" error in the model
+
+#### (b) An inflexible method will be better because with the small number of data, a flexible model will be overfitting the data. * 
+
+#### (c) Flexible is better. It is able to accomodate for the nonlinear nature of the data  
+
+#### (d) Inflexible is better. This is because the Variance is irreducible error and using a flexible model we might be overfitting
+
+----------------
+
+# ISLR 2.4.3: 
+b)  
+
+* Squared bias: as we increase flexibility we are more likely to fit more points in the data (decreasing MSE)  
+
+* variance: increases constantly. As we make the model more flexible, we are fitting all the data increasing the variance (we reach the point of overfitting)
+
+* Training error: as we increase flexibility, training error decreases because we're approaching a larger number of data and getting closer to the true distribution 
+
+* test error: as we increase flexibility, test error falls and then rises again. This is because at some point we start overfitting. 
+
+* Irreducible (Bayes): constantly horizantal since it is irreducible and doesn't change no matter how flexible we make the model. 
+
+---------
+
+# ISLR 2.4.6: 
+
+Parametric model: tries to fit the data by estimating values for the parameters (usually using maximum likelyhood estimators).  
+
+Non-parametric: doesn't make an assumption about the shape or the distribution of the data. It only depends on the full dataset. 
+
+Patemetric models allow us to go beyond the data and make predictive models while non-parametric ones cannot be used the same way. Additionally, parametric models are simpler to express and use with different data samples. A parametric model can also be produced by a small number of data compared to the non-parametric model which requires a large amount of data.
+
+non-parametric models, on the other hand, are very flexible and are able to fully fit the data. There's a bigger likelyhood that the parametric model makes wrong assumptions about the data. 
+
+-----------
+
+# ISLR 2.4.8:
+
+a) 
+
+```{r}
+download.file("http://www-bcf.usc.edu/~gareth/ISL/College.csv", destfile = "College.csv")
+college = read.csv("/home/local/MAC/mibaid/Math-253-Assignments-1/College.csv")
+```
+
+
+b) 
+
+```{r}
+rownames(college) = college[,1]
+fix(college)
+
+college = college[,-1]
+fix(college)
+```
+
+
+
+c) 
+
+```{r}
+summary(college)
+
+pairs(college[,1:10])
+
+plot(college$Outstate ~ college$Private)
+
+Elite=rep("No",nrow(college))
+Elite[college$Top10perc >50]="Yes"
+Elite=as.factor(Elite)
+college=data.frame(college ,Elite)
+
+summary(college$Elite)
+
+plot(college$Outstate ~ college$Elite)
+
+par(mfrow = c(2,2))
+hist(college$Apps, breaks = 100)
+hist(college$Accept, breaks = 20)
+hist(college$Top10perc, breaks = 3)
+hist(college$Top25perc, breaks = 200)
+
+
+```
+
+
+
+
+
+
+
+
+
+
