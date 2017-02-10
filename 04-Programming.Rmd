@@ -4,12 +4,6 @@
 Author: Muath Ibaid
 ---
 
-## Test statements
-
-```{r}
-scoreActivity::score253(4)
-```
-
 
 ## Task 1 
 
@@ -46,3 +40,11 @@ lines( x3, y3)
 
 ## Task 4 
 
+
+
+
+## Test statements
+
+```{r}
+scoreActivity::score253(4)
+```

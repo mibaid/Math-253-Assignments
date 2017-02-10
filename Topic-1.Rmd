@@ -58,10 +58,10 @@ b)
 
 ```{r}
 rownames(college) = college[,1]
-fix(college)
+#fix(college)
 
 college = college[,-1]
-fix(college)
+#fix(college)
 ```
 
 
@@ -94,6 +94,168 @@ hist(college$Top25perc, breaks = 200)
 ```
 
 
+-----------
+
+# ISLR 2.4.9:
+
+## (a)  
+
+```{r}
+auto=read.csv("/home/local/MAC/mibaid/Math-253-Assignments-1/Auto.csv",header=T,na.strings ="?")
+auto = na.omit(auto)
+
+
+type_sum(auto$mpg) #Quantitative
+type_sum(auto$cylinders) #Quantitative
+type_sum(auto$displacement)  #Quantitative 
+type_sum(auto$horsepower) #Quantitative 
+type_sum(auto$weight) #Quantitative 
+type_sum(auto$acceleration) #Quantitative
+type_sum(auto$year) #Quantitiatve 
+type_sum(auto$origin) #Qualitative
+type_sum(auto$name) #Qualitative
+
+```
+
+## (b)
+
+```{r}
+range(auto$mpg) 
+range(auto$cylinders) 
+range(auto$displacement)
+range(as.numeric(auto$horsepower))  
+range(auto$weight)  
+range(auto$acceleration) 
+range(auto$year)  
+
+```
+
+## (c) 
+
+```{r}
+
+#mean: 
+
+mean(auto$mpg) 
+mean(auto$cylinders) 
+mean(auto$displacement)
+mean(as.numeric(auto$horsepower))  
+mean(auto$weight)  
+mean(auto$acceleration) 
+mean(auto$year)  
+
+################------ 
+
+#SD 
+sd(auto$mpg) 
+sd(auto$cylinders) 
+sd(auto$displacement)
+sd(as.numeric(auto$horsepower))  
+sd(auto$weight)  
+sd(auto$acceleration) 
+sd(auto$year)  
+```
+
+
+## (d)
+
+```{r}
+auto=read.csv("/home/local/MAC/mibaid/Math-253-Assignments-1/Auto.csv",header=T,na.strings ="?")
+auto1 = data.frame(auto[-c(10:86),], na.strings="?")
+nrow(auto1)
+```
+
+```{r}
+
+range(auto1$mpg) 
+range(auto1$cylinders) 
+range(auto1$displacement)
+range((auto1$horsepower))  #There's a problem with this variable. as.numeric doesn't work
+range(auto1$weight)  
+range(auto1$acceleration) 
+range(auto1$year)  
+
+
+
+#mean: 
+
+mean(auto$mpg) 
+mean(auto$cylinders) 
+mean(auto$displacement)
+mean(as.numeric(auto$horsepower))  
+mean(auto$weight)  
+mean(auto$acceleration) 
+mean(auto$year)  
+
+################------ 
+
+#SD 
+sd(auto$mpg) 
+sd(auto$cylinders) 
+sd(auto$displacement)
+sd(as.numeric(auto$horsepower))  
+sd(auto$weight)  
+sd(auto$acceleration) 
+sd(auto$year)  
+```
+
+
+## (e) 
+
+```{r}
+plot(as.numeric(auto$mpg) ~ auto$cylinders)
+#It looks like cars with more cylinders have lower milage on average
+
+scatterplot(auto$horsepower, auto$acceleration)
+#the measure of accelaration is how many seconds it takes for the car to reach from 0-100 miles. Given this definition, the graph makes since. Higher horse power -> lower accelaration time. 
+
+plot (auto$acceleration, auto$year)
+#surprisingly no clear trends here
+
+```
+
+
+## (f)
+
+```{r}
+plot(auto$mpg~ auto$cylinders)
+plot(auto$mpg ~ auto$horsepower)
+plot(auto$mpg, auto$weight)
+plot(auto$mpg ~ auto$acceleration)
+plot(auto$mpg ~ auto$year)
+```
+
+I would use cylinders, horsepower, weight because I can see a clear trend that might be significant. 
+However, I don't see the same trend with acceleration and year
+
+-------------------
+
+# ISLR 2.4.2:
+(a) Regression. Inference. N=500, p= 4
+
+(b) Classification. Prediction. N=20, P= 14
+
+(c) Regression. Prediction. N=52. P=3
+
+---------------------
+
+# ISLR 2.4.7:
+
+(a) Euclidean distance: 
+
+Obs1: (0,3,0) - (0,0,0) = sqrt(3^2) = 3
+Obs2: (2,0,0) - (0,0,0) = sqrt(2^2) = 2
+Obs3: (0,1,3) - (0,0,0) = sqrt(10) = 3.162278
+Obs4: (0,1,2) - (0,0,0) = sqrt(5) = 2.236068
+Obs5: (-1,0,1) - (0,0,0) = sqrt(2) = 1.414214
+Obs6: (1,1,1) - (0,0,0) = sqrt(3) = 1.732051   
+
+
+(b) Prediction with K=1: Green. The closest neighbor for K=1 is 1.41 which is the 5th observation and it's green
+
+(c) Prediction with K=3: Red. This is because 2,5 and 6 are closest neighbors and two of them are red. 
+
+(d) Small because a small K better fits a non-linear boundy. It takes less points to make it flexible.
 
 
 
@@ -101,4 +263,15 @@ hist(college$Top25perc, breaks = 200)
 
 
 
+
+
+
+
+
+
+
+
+
+
+  
 

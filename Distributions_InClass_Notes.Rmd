@@ -1,0 +1,18 @@
+---
+title: "Distributions"
+author: "Muath Ibaid"
+date: "2/7/2017"
+output: html_document
+---
+
+# In R, these are the letters before distributions: 
+
+r - make random numbers 
+p - Given an x, what fraction of the prob. fall below x
+q - given a fraction, what is the x
+d - density
+
+
+## An example to show f-distribution
+- Fdistribution is centered on 1
+-  
