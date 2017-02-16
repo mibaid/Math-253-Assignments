@@ -1,0 +1,50 @@
+---
+title: "Linear_Algebra-notes"
+author: "Muath Ibaid"
+date: "2/14/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Scalar multiplication
+
+```{r}
+vscale = function(a, v) {
+  a * v 
+}
+
+#testing: 
+#vscale(2, c(2,3), c(5,4))
+
+```
+
+#Addition of Vectors
+```{r}
+vadd = function(v1, v2) {
+  v1 + v2 
+}
+
+```
+
+
+#Dot multiplication
+```{r}
+vdot = function(v1, v2){
+  return(sum(v1*v2))
+}
+
+#m1 = matrix(c(4,5,3,1), nrow = 2)
+#m2 = matrix(c(3,1,8,1), nrow = 2)
+
+#vdot(m1,m2)
+```
+
+
+
+
+
+

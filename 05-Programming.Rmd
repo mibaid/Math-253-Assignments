@@ -56,8 +56,16 @@ one_to_five <- function(hist_data) {
   bars
 }
 
+My_bars = one_to_five(hist_basics)
+```
 
-My_bars = data.frame(one_to_five(hist_basics))
+
+## Task 6
+
+```{r}
+plot(My_bars, type="n")
+lines(My_bars)
+polygon(My_bars, col = 'yellow')
 ```
 
 ## Test statements

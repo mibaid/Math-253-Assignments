@@ -1,7 +1,49 @@
 # In-Class Programming Activity, Day 6
 
-Your work goes here ...
+## Task 1
 
+```{r}
+library(mosaicData)
+myHistogram <- function(fill = 'red'){
+  
+  nbins = 10
+  evenly_spaced = seq(min(Galton$height), max(Galton$height), length.out = nbins+1)
+  bin_counts = table(cut(Galton$height, breaks = evenly_spaced))
+  hist_basics = data.frame(xL= evenly_spaced[1:length(evenly_spaced)-1], xR = evenly_spaced[2:length(evenly_spaced)], count= as.numeric(bin_counts))
+  
+  make_one_bar <- function(point) {
+  xLeft <- point$xL
+  xRight <- point$xR
+  height <- point$count
+  res <- data.frame(
+              x = c(xLeft,  xLeft,  xRight, xRight, NA),
+              y = c(    0, height,  height,      0, NA)
+   )
+   res
+  }
+
+  one_to_five <- function(hist_data) {
+    bars <- NULL
+    for (k in 1:nrow(hist_data)) {
+      new_bar <- make_one_bar(hist_data[k, ])
+      bars <- rbind(bars, new_bar)
+      }
+      bars
+  }
+
+  My_bars = one_to_five(hist_basics)
+  
+  plot(My_bars, type="n")
+  lines(My_bars)
+  polygon(My_bars, col = fill)
+  
+  dnorm(x, mean = mean())
+
+}
+
+myHistogram('green')
+
+```
 
 
 ## Test statements
