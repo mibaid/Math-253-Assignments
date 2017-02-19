@@ -1,2 +1,201 @@
 # Topic 2 Exercises: Linear Regression
 
+#ISLR 3.6 
+
+```{r}
+library(MASS)
+library(ISLR)
+```
+
+
+```{r}
+names(Boston)
+
+lm.fit = lm(medv ~ lstat, data = Boston)
+
+lm.fit
+summary(lm.fit)
+
+names(lm.fit)
+
+coef(lm.fit)
+confint(lm.fit)
+
+predict(lm.fit, data.frame(lstat = c(5,10,15)), interval = "confidence")
+
+plot(Boston$lstat, Boston$medv)
+abline(lm.fit)
+
+abline(lm.fit, lwd = 3, col = 'red')
+
+plot(Boston$lstat, Boston$medv, col='red')
+plot(Boston$lstat, Boston$medv, pch = 15)
+
+plot(Boston$lstat, Boston$medv, pch = '+')
+plot(Boston$lstat, Boston$medv, pch = 15)
+
+plot(1:20, 1:20, pch= 1:20)
+
+
+
+#view plots from regression diagnostic plots 
+
+par(mfrow= c(2,2))
+plot(lm.fit)
+
+
+plot(predict(lm.fit), residuals(lm.fit))
+plot(predict(lm.fit), rstudent(lm.fit))
+
+
+plot(hatvalues(lm.fit))
+which.max(hatvalues(lm.fit))
+
+
+```
+
+
+
+```{r}
+LoadLibraries = function(){
+  library(ISLR)
+  library(MASS)
+  print("The MASS and ISLR libraries have been loaded.")
+}
+
+LoadLibraries()
+```
+
+
+#ISLR 3.7.13
+
+```{r}
+library(scatterplot3d)
+
+#(a)
+x = rnorm(100, mean = 0, sd= 1)
+
+#(b)
+eps = rnorm(100, 0, sd = 0.5)
+
+#(c)
+y = -1 + 0.5*x + eps
+length(y)
+## Length = 100
+## beta_0 = -1
+## beta_1 = 0.5
+
+
+#(d)
+#scatterplot(x, y)
+## This is a positively correlated graph between x and y 
+
+#(e)
+lm(y ~ x)
+
+## Beta_0 and Beta_1 slightly differ from the original data. This might be because the error term is missing 
+
+#(f)
+#scatterplot(x, y)
+#abline( lm(y ~ x), col = 'blue')
+#legend(-1, legend = c("actual data", "model"), col=c('green','blue'), lwd=3)
+
+#(g)
+lm( y ~ x + poly(x, 2))
+summary(lm( y ~ x))
+summary(lm( y ~ x + poly(x, 2)))
+## y = -1 + 0.5x is our original regression
+##   = -0.99894 + 0.5*(0.59663) - -0.07352
+##   = -0.627105
+#this is not more accurate 
+#ajusted R squared is slightly higher without the polynomial term. So is the F-statistic. 
+
+#(h)
+eps2 = rnorm(100, 0, sd = 0.25)
+y2 = -1 + 0.5*x + eps2
+lm(y2 ~ x)
+#scatterplot(x, y2)
+#abline( lm(y2 ~ x), col = 'blue')
+#legend(-1, legend = c("actual data", "model"), col=c('green','blue'), lwd=3)
+summary(lm( y2 ~ x))
+summary(lm( y2 ~ x + poly(x, 2)))
+
+##Model is better. Both models are better and the adj R is higher in both. 
+
+
+#(I)
+eps3 = rnorm(100, 0, sd = 0.8)
+y3 = -1 + 0.5*x + eps3
+lm(y3 ~ x)
+#scatterplot(x, y3)
+#abline( lm(y3 ~ x), col = 'blue')
+#legend(-1, legend = c("actual data", "model"), col=c('green','blue'), lwd=3)
+summary(lm( y3 ~ x))
+summary(lm( y3 ~ x + poly(x, 2)))
+
+## Lower adj R and F statisitics for both.
+
+#(j)
+confint(lm( y ~ x))
+confint(lm( y2 ~ x))
+confint(lm( y3 ~ x))
+
+
+
+```
+As expected, confint gets smaller as we have less noise in the data.
+
+                 2.5 %     97.5 %
+(Intercept) -1.1020276 -0.8958549
+x            0.5014353  0.6918155
+                 2.5 %     97.5 %
+(Intercept) -1.0914554 -0.9944907
+x            0.5042118  0.5937492
+                 2.5 %     97.5 %
+(Intercept) -0.9586514 -0.6259520
+x            0.4989606  0.8061757
+
+
+
+* PS scatterplot gives me an error when I try to knit. However, it works just fine on my console
+---------------
+
+#On p. 66 the authors state, “This is clearly not true in Fig. 3.1” Explain why.
+
+This is because the error terms are increasing as x increases implying that they're correlated as seen in the graph. Violating the assumption of uncorrelated variance and error terms
+
+#On p. 77 the authors state, “In this case we cannot even fit the multiple regression models using least squares ….” Explain why.
+
+This will propose the case of overfitting. Additionally, we would be getting an F-statistic =< 1 which is completely opposite of what we're trying to acheive. (an F stat larger than 1 is what we want to prove that at least one of the predictors is helpful)
+
+--------------
+
+#ISLR 3.7.3
+
+(a) iii 
+
+(b) salary = X0 + X1*GPA + X2*IQ + X3*Gender + X4*GPA:IQ + X5*GPA:Gender
+           = 50 + 20*(4.0) + 0.07*(110) + 35*(1) + 0.01*(4.0 * 110) + -10*(4.0*1)
+           = 137.1
+           
+(c) False. Although the interaction term might be small, it depends on the values of IQ and GPA. What determines whether the interaction effect is significant or not is the p-value on that term and not its magnitude.
+
+---------------
+
+#ISLR 3.7.4
+
+(a) We'd expect them to be the same since the actual true relationship model is a linear one, adding a cubic term won't reduce the sum of squared residuals.
+
+(b) There's overfitting here so I'd expect the test RSS for the cubic model to be higher than that for the linear. We're forcing it to take a certain shape. 
+
+(c) I'd expect cubic model to have smaller RSS because it's more flexible in fitting the training data. 
+
+(d) We don't have enough information to asnwer this question with the test data. We need to know the underlying regression model shape. 
+
+
+
+
+
+
+
+
