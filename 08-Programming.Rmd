@@ -3,7 +3,8 @@
 ## Task 1
 ```{r}
 x = c(runif(100, 20,70))
-My_data = data.frame(x = x, y = c(5 + 3*x + 2 *rnorm(100))) 
+y = c(5 + 3*x + 2 *rnorm(100))
+My_data = data.frame(x = x, y = y) 
 
 #(2)
 plot(My_data)
@@ -46,7 +47,7 @@ best = optim(starting_params, taxi_likelihood, control = list(fnscale = -1), dat
 
 plot(fare_amount ~ trip_distance, data = Taxi_trips)
 
-abline(best$par[1], best$par[2], col="red", lwd=3)
+abline(best$par[1], best$par[2], col="red")
 ```
 
 ## Test statements
