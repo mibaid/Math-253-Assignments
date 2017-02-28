@@ -1,6 +1,60 @@
 # In-Class Programming Activity, Day 10
 
-Your work goes here ...
+## Task 1 
+
+```{r}
+library(ISLR)
+
+logistic <- function(x){
+  exp(x) / (1 + exp(x))
+}
+
+#lineae combination
+linear_combine <- function(data, coefs) {
+  result <- 0
+  for (nm in names(coefs)) {
+    if (nm == "intercept") {
+      result <- result + coefs[[nm]]
+    } else {
+      if (nm %in% names(data)){
+        result <- result + coefs[[nm]] * data[[nm]]
+      } else {
+        stop("no coef in data", call. = FALSE)
+      }
+    }
+  }
+ 
+  result 
+}
+
+############
+#Probability 
+LL_logistic <- function(data, coefs, outcome= outcome){
+  p = logistic(linear_combine(data = data, coefs = coefs))
+  likelihoods <- ifelse(outcome, p, 1-p)
+  
+  sum(log(likelihoods))
+}
+
+
+LL_logistic(data=Default, 
+            coefs = c(intercept = 1, income = -0.0001), 
+            outcome = Default$default == "Yes")
+
+
+#Optimize 
+predict_Default <- function(coefs){
+  LL_logistic( data = Default, coefs = coefs,  outcome = Default$default == "Yes")
+}
+
+cf = c(intercept = 1, income = -0.0001)
+best_coefs = optim(cf, predict_Default, control=list(fnscale = -1))
+
+best_coefs
+glm(default == "Yes" ~ income, data=Default, family="binomial")
+
+
+```
 
 
 
