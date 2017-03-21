@@ -1,0 +1,50 @@
+---
+title: "knn_model"
+author: "Muath Ibaid"
+date: "3/9/2017"
+output: html_document
+---
+
+
+```{r}
+Temp = read.csv("http://tiny.cc/dcf/Temperature.csv", stringsAsFactors = FALSE)
+```
+
+
+```{r}
+knn <- function(form, data, k = 1){
+  M <- model.matrix(form, data)
+  yname = form[[2]]
+  response = eval(yname, envir = data)
+  
+  result = list(M =M, response = response, k = k, formula = form)
+  return(result)
+}
+
+my_mod = knn(Y ~ X1 + X2, data = tail(Temp), k = 3)
+
+
+predict.knn <- function(mod, newdata = NULL){
+  if(is.null(newdata)) stop ("I need data")
+  
+  newM = model.matrix(mod$formula, data = newdata)
+  
+  for (k in 1:nrow(newM)){
+    
+    one_row = newdata[k,]
+    this_point = matrix(one_row,
+                        nrow= nrow(mod$M) , 
+                        ncol = length(one_row),
+                        byrow = TRUE)
+    distances = rowSums((mod$M - one_row)^2)
+    
+    best_indices = order(distances)[1:mod$k]
+    
+  }
+  return(table(mod$response[best_indices])/k)
+}
+predict.knn(my_mod, newdata = tail(Temp))
+
+my_mod$M
+```
+
