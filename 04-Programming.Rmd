@@ -31,8 +31,8 @@ lines(x2, y2, col = 'tomato', lwd = 3)
 ```{r}
 plot(1, xlim = c(0, 100), ylim = c(0,100), type="n")
 
-x3 = 50 + 40*sin(seq(0, 2*pi, by = 0.01))
-y3 = 60 + 40*cos(seq(0,2*pi, by = 0.01))
+x3 = 50 + 20*sin(seq(0, 2 * pi, length = 100))
+y3 = 60 + 20*cos(seq(0, 2 * pi, length = 100))
 
 lines( x3, y3)
 ```
@@ -40,6 +40,21 @@ lines( x3, y3)
 
 ## Task 4 
 
+Create objects named x4 and y4 to create a figure-8 shaped path. One way to do this is to use statements similar to those for drawing a circle, but vary the radius at each of the angles to be proportional to abs(sin(angles)).
+
+Use polygon() to fill the path created by x4 and y4.
+
+```{r}
+plot(1, xlim = c(0, 100), ylim = c(0,100), type="n")
+
+a = seq(0, 2*pi, length = 50*pi)
+
+x4 = 50 + 20 * abs(sin(a)) * cos(a)
+y4 = 50 + 20 * abs(sin(a)) * sin(a)
+
+lines( x4, y4)
+
+```
 
 
 
