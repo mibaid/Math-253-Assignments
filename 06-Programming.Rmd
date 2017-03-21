@@ -4,6 +4,7 @@
 
 ```{r}
 library(mosaicData)
+
 myHistogram <- function(fill = 'red'){
   
   nbins = 10
@@ -37,11 +38,14 @@ myHistogram <- function(fill = 'red'){
   lines(My_bars)
   polygon(My_bars, col = fill)
   
-  dnorm(x, mean = mean())
+  dnorm(7, mean =2, sd =  1)
 
 }
 
-myHistogram('green')
+myHistogram()
+```
+
+```{r}
 
 ```
 
