@@ -1,6 +1,67 @@
 # In-Class Programming Activity, Day 15
 
-Your work goes here ...
+```{r}
+#download.file("http://tiny.cc/dcf/mona.rda", destfile = 'mona.rda')
+
+load('mona.rda')
+
+X = t(mona) - mean(mona[])
+
+X_rand = matrix(rnorm(ncol(X)*nrow(X), 0, 1), ncol = ncol(X), nrow = nrow(X))
+
+image(X_rand)
+
+X_corr = X_rand %*% chol(var(X))
+image(X_corr)
+
+
+numbs = rep(0, 175)
+
+beta = sample(c(numbs, sample(c(2,5,-3,-4), 16, replace = TRUE)))
+
+Y_pure= X %*% beta
+
+Y_real = X %*% beta + rnorm(nrow(X), mean=0 , sd=sqrt(0.1*var(Y_pure)))
+
+
+#Least Square 
+lm1 = lm(Y_pure ~ X - 1)
+beta_hat_pure = coef(lm1)
+plot(beta, beta_hat_pure)
+
+
+lm2 = lm(Y_real ~ X - 1)
+beta_hat_real = coef(lm2)
+plot(beta, beta_hat_real)
+
+
+
+library(glmnet)
+lasso_mod <- cv.glmnet(X, Y_real, alpha=1)
+beta_lasso <- predict(lasso_mod, type = "coefficients", s = lasso_mod$lambda.min)
+
+image(X_rand)
+sing_vals <- svd(X)$d
+rsqrdSingVal = cumsum(sing_vals^2)/sum(sing_vals^2)
+
+sing_vals_rand = svd(X_rand)$d
+sing_vals_corr = svd(X_corr)$d
+
+rsqrdSingVal1 = cumsum(sing_vals_rand^2)/sum(sing_vals_rand^2)
+rsqrdSingVal2 = cumsum(sing_vals_corr^2)/sum(sing_vals_corr^2)
+
+
+plot(rsqrdSingVal ~ sing_vals_rand[1:191])
+
+n99 = sum(rsqrdSingVal<0.99)
+n99_rand = sum(rsqrdSingVal1<0.99)
+n99_corr = sum(rsqrdSingVal2<0.99)
+
+
+#library(pls)
+#pcr.fit <- pcr(Y_real ~ X, scale = TRUE, validation="CV") 
+
+```
 
 
 
