@@ -1,2 +1,103 @@
 # Topic 4 Exercises: Classification
 
+
+## ISLR 4.7.11
+
+```{r}
+
+#(A)
+Auto$mpg01 = as.numeric(Auto$mpg>median(Auto$mpg))
+
+#(B)
+plot(Auto$mpg01 ~ Auto$cylinders)
+plot(Auto$mpg01 ~ Auto$displacement)
+#Displacement seems to be a reasonable predictor. Lower displacement values seem to be associated with mpg>median(mpg)
+plot(Auto$mpg01 ~ Auto$weight)
+#Weight has similar features to displacement. It is a predictor
+plot(Auto$mpg01, Auto$horsepower)
+#Higher horsepower is associated with mpg > median(mpg)
+plot(Auto$mpg01 ~ Auto$acceleration)
+plot(Auto$mpg01 ~ Auto$year)
+plot(Auto$mpg01 ~ Auto$origin)
+plot(Auto$mpg01 ~ Auto$name)
+
+
+## Therefore, Displacement, horsepower, Weight and of course, mpg are useful to predict mpg01 
+
+#(c)
+training_Auto = Auto[1:199, ]
+testing_Auto = Auto[199:nrow(Auto) , ]
+
+#(d)
+
+library(MASS)
+lda.fit = lda(training_Auto$mpg01 ~ training_Auto$displacement + training_Auto$weight)
+lda.pred = predict(lda.fit, testing_Auto)
+table(lda.pred$class == 0)
+mean(lda.pred$class == 0)
+
+## Test error obtained = 60.1%
+
+
+#(e)
+qda.fit = qda(training_Auto$mpg01 ~ training_Auto$displacement + training_Auto$weight)
+qda.pred = predict(qda.fit, testing_Auto)
+table(qda.pred$class == 0)
+mean(qda.pred$class == 0)
+
+## Test error obtained = 62.6%
+
+#(f)
+glm.fit = glm(training_Auto$mpg01 ~ training_Auto$displacement + training_Auto$weight, family = binomial)
+summary(glm.fit)
+ 
+glm.pred = predict(glm.fit, data = testing_Auto, type = 'response')
+glm.pred
+glm.probs=rep("0",199)
+glm.probs[glm.pred >.5]=1
+
+table(glm.probs, testing_Auto$mpg01) 
+mean(glm.probs == testing_Auto$mpg01)
+
+## Model correctly predicts  = 44.21%
+## Error rate = 100 - 44.21 = %55.79
+
+
+#(g) KNN 
+library(class)
+train.X = cbind(training_Auto$displacement, training_Auto$weight)
+test.X = cbind(testing_Auto$displacement, testing_Auto$weight)
+train.MPG = factor(training_Auto$mpg01==1)
+
+
+train = (year%%2 == 0)  # if the year is even
+test = !train
+Auto.train = Auto[train, ]
+Auto.test = Auto[test, ]
+mpg01.test = mpg01[test]
+train.mpg01 = factor(mpg01[train])
+
+
+set.seed(1)
+knn.pred = knn(Auto.train, Auto.test, train.mpg01, k = 1)
+```
+
+
+## ISLR 4.7.13
+
+```{r}
+#Boston Data Set
+
+Boston$crime50 = as.numeric(Boston$crim>median(Boston$crim))
+pairs(Boston)
+
+
+#Boston$nox
+#Boston$age
+#Boston$dis
+#Boston$black
+#Boston$medv
+```
+
+
+

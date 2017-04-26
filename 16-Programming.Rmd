@@ -1,6 +1,27 @@
 # In-Class Programming Activity, Day 16
 
-Your work goes here ...
+```{r}
+my_knots <- function(x, k){
+  knots = numeric(k)
+  for (i in 1:k){
+    knots[i] = i/(k+1)
+  }
+  quantile(x, knots)
+}
+
+spline_model_matrix <- function(x, knot_locations) { 
+  MM = cbind(1, x, x^2, x^3)
+  
+  for (knot in knot_locations){
+    y = ifelse (x>knot, ((x - knot)^3), 0)
+    MM = cbind(MM, y)
+  }
+  return(MM)
+}
+
+spline_model_matrix(x, my_knots(x, 5))
+
+```
 
 
 

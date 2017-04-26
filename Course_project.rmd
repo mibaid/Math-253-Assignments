@@ -1,0 +1,86 @@
+---
+title: "Math 253 Final Project- H-1B Visa Analysis"
+author: "Melissa Leong & Muath Ibaid"
+date: "4/18/2017"
+output: html_document
+---
+
+## **a) Problem Setting**: 
+**The Client:** An H1B visa applicant
+**The Situation:** The client walks in and requests that we to predict their chances of being approved for and H1B visa. The client is able to provide information on their: intended work sector, prevailing wage, whether their position is full time or part time amd the year they applied. 
+
+------------------------------------
+
+## **b) Data Description**: 
+
+```{r, include=FALSE}
+#Load libraries
+install.packages("data.table")
+library(mosaic)
+library(readr)
+library(data.table)
+library(MASS)
+   
+#load data
+h1b <- read.csv("/home/local/MAC/mleong/Math-253-Assignments/h1b_kaggle.csv")
+h1bSmall <- h1b[PREVAILING_WAGE=3607]
+
+#Type transformations
+h1b$outcome <- as.numeric(with(h1b,CASE_STATUS=="CERTIFIED"))
+h1b$PREVAILING_WAGE <- as.integer(h1b$PREVAILING_WAGE)
+
+```
+
+
+#### Declaring Test and training data
+```{r}
+tr = (h1b$X %% 2 == 0)
+te = (!tr)
+
+training = h1b[tr, ]
+testing = h1b[te, ]
+
+
+training$outcome <- as.factor(training$outcome)
+testing$outcome <- as.factor(testing$outcome)
+
+```
+
+
+
+------------------------------------
+
+## **c) Classification and regression methods**:  
+
+### c.1 Logistic Regression:
+MEL DOES THIS 
+```{r}
+#training: 
+
+mc1 = glm(outcome ~  PREVAILING_WAGE, data = training)
+#mc1 = glm(outcome ~  , data = training)
+
+#summary(h1b$X)
+```
+
+
+### c.2 Linear Disciminate Analysis (LDA) / Quadratic Discriminate Analysis (QDA):
+MUATH DOES THIS
+
+```{r}
+mlda = lda(outcome ~ PREVAILING_WAGE + FULL_TIME_POSITION, data = training)
+plot(mlda)
+```
+
+
+
+------------------------------------
+## **d) Evaluation of results:** 
+
+*** Loss funciton: correct and incorrect classifications -- 
+
+
+
+------------------------------------
+## **d) Recommendations:** 
+

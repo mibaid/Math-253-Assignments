@@ -1,6 +1,24 @@
 # In-Class Programming Activity, Day 14
 
-Your work goes here ...
+```{r}
+library(glmnet)
+
+GenCont <- read.csv("http://tiny.cc/dcf/GenCont.csv")
+
+compare_ols_ridge <- function(responses, predictors, lambda=1){
+  nrows = nrow(GenCont)
+  training_data = sample(GenCont, size = nrows/2)
+  testing_data = sample(GenCont, size = nrow/2, replace = TRUE)
+  
+}
+
+nrows = nrow(GenCont)
+training_data = sample(GenCont, size = nrows/2)
+testing_data = sample(GenCont, size = nrows/2, replace = FALSE)
+
+View(training_data)
+View(testing_data)
+```
 
 
 
