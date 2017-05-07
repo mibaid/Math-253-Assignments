@@ -1,6 +1,56 @@
 # In-Class Programming Activity, Day 13
 
-Your work goes here ...
+
+```{r}
+k_fold <- function(formula, method = lm, data = mtcars, predfun = predict, k = 10) {
+  return(error_estimate)
+}
+
+k <- 10
+sets <- (1:51 %% k) + 1
+
+mspe <- numeric(k)
+for (i in 1:k) {     
+  mspe[i]
+}
+
+
+
+k_fold1 <- function(formula, method = lm, data = mtcars, predfun = predict, k = 10) {
+  mspe <- numeric(k)
+  sets <- (1:nrow(data) %% k) + 1 
+  for (i in 1:k) {
+    test_cases = i == sets
+    For_Testing  = data[test_cases,]
+    For_Training = data[ ! test_cases,]
+    mod = lm(mpg ~ hp + wt + am, data = For_Training)
+    pred_vals = predict(mod, newdata = For_Testing)
+    mspe[i] = mean((For_Testing[["mpg"]] - pred_vals)^2)
+  }
+
+  return(mean(mspe))
+}
+
+
+mod <- lm(mpg ~ hp + wt + am, data = mtcars)
+mean(resid(mod)^2)
+
+k_fold <- function(formula, method = lm, data = mtcars, predfun = predict, k = 10) {
+  mspe <- numeric(k)
+  sets <- (1:nrow(data) %% k) + 1 
+  for (i in 1:k) {
+    test_cases <- i == sets
+    For_Testing  <- data[test_cases,]
+    For_Training <- data[ ! test_cases,]
+    mod <- method(formula, data = For_Training)
+    pred_vals <- predfun(mod, newdata = For_Testing)
+    mspe[i] <- mean((For_Testing[[as.character(formula[[2]])]] - pred_vals)^2)
+  }
+
+  return(mean(mspe))
+}
+
+```
 
 
 
