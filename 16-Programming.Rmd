@@ -1,6 +1,7 @@
 # In-Class Programming Activity, Day 16
 
 ```{r}
+
 my_knots <- function(x, k){
   knots = numeric(k)
   for (i in 1:k){
@@ -19,9 +20,19 @@ spline_model_matrix <- function(x, knot_locations) {
   return(MM)
 }
 
-spline_model_matrix(x, my_knots(x, 5))
-
+fit_spline <- function(formula, k=2, data=parent.frame()) {
+  y = eval(formula[[2]], envir=data)
+  x = eval(formula[[3]], envir=data)
+  knot_locations = my_knots(x, k)
+  MM = spline_model_matrix(x, knot_locations)
+  mod = lm(y ~ MM - 1)
+  res = list(coef = coef(mod), knots = knot_locations, cov = vcov(mod))
+  class(res) = "my_spline"
+  
+  return(res)
+}
 ```
+
 
 
 
@@ -29,4 +40,5 @@ spline_model_matrix(x, my_knots(x, 5))
 
 ```{r}
 scoreActivity::score253(16)
+
 ```
