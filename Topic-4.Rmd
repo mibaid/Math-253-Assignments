@@ -4,8 +4,11 @@
 ## ISLR 4.7.11
 
 ```{r}
-
+library(mosaic)
+library(mosaicData)
+library(ISLR)
 #(A)
+
 Auto$mpg01 = as.numeric(Auto$mpg>median(Auto$mpg))
 
 #(B)
@@ -56,7 +59,7 @@ glm.pred
 glm.probs=rep("0",199)
 glm.probs[glm.pred >.5]=1
 
-table(glm.probs, testing_Auto$mpg01) 
+#table(glm.probs, testing_Auto$mpg01) 
 mean(glm.probs == testing_Auto$mpg01)
 
 ## Model correctly predicts  = 44.21%
@@ -70,33 +73,72 @@ test.X = cbind(testing_Auto$displacement, testing_Auto$weight)
 train.MPG = factor(training_Auto$mpg01==1)
 
 
-train = (year%%2 == 0)  # if the year is even
+train = (Auto$year%%2 == 0)  # if the year is even
 test = !train
 Auto.train = Auto[train, ]
 Auto.test = Auto[test, ]
-mpg01.test = mpg01[test]
-train.mpg01 = factor(mpg01[train])
+mpg01.test = Auto$mpg01[test]
+train.mpg01 = factor(Auto$mpg01[train])
 
 
 set.seed(1)
-knn.pred = knn(Auto.train, Auto.test, train.mpg01, k = 1)
+#knn.pred = knn(Auto.train, Auto.test, train.mpg01, k = 1)
 ```
 
 
 ## ISLR 4.7.13
 
 ```{r}
+library(class)
 #Boston Data Set
 
 Boston$crime50 = as.numeric(Boston$crim>median(Boston$crim))
-pairs(Boston)
+#pairs(Boston)
 
+
+train = 1:(dim(Boston)[1]/2)
+test = (dim(Boston)[1]/2 + 1):dim(Boston)[1]
+Boston.train = Boston[train, ]
+Boston.test = Boston[test, ]
+crime50.test = Boston$crime50[test]
+
+glm.fit = glm(crime50 ~ nox + age + dis + black + medv, data = Boston, family = binomial, 
+    subset = train)
 
 #Boston$nox
 #Boston$age
 #Boston$dis
 #Boston$black
 #Boston$medv
+
+glm.probs = predict(glm.fit, Boston.test, type = "response")
+glm.pred = rep(0, length(glm.probs))
+glm.pred[glm.probs > 0.5] = 1
+mean(glm.pred != crime50.test)
+
+## Test error is 13.4%
+
+
+lda.fit = lda(crime50 ~ nox + age + dis + black + medv, data = Boston, subset = train)
+lda.pred = predict(lda.fit, Boston.test)
+mean(lda.pred$class != crime50.test)
+
+## Test error is 15.02%
+
+
+
+train.X = cbind(Boston$zn, Boston$indus, Boston$chas, Boston$nox, 
+                Boston$rm, Boston$age, Boston$dis, Boston$rad, Boston$tax, Boston$ptratio, Boston$black, 
+                Boston$lstat, Boston$medv)[train, ]
+test.X = cbind(Boston$zn, Boston$indus, Boston$chas, Boston$nox, 
+                Boston$rm, Boston$age, Boston$dis, Boston$rad, Boston$tax, Boston$ptratio, Boston$black, 
+                Boston$lstat, Boston$medv)[test, ]
+
+train.crime50 = Boston$crime50[train]
+
+#knn.pred = knn(train.X, test.X, k = 1)
+#mean(knn.pred != crime50.test)
+
 ```
 
 
