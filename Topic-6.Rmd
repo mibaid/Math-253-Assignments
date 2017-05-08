@@ -1,2 +1,85 @@
 # Topic 6 Exercises: Selecting Model Terms
 
+
+### 6.8.1
+
+a) Best subset  
+
+b) Forward stepwise  
+
+c) 1) True, 2) True, 3) False , 4) False, 5) False
+
+
+### 6.8.2
+
+a) iii. Less flexible (it takes away some of the predictors) ...   
+
+b) iii, less flexible  
+
+c) ii 
+
+### 6.8.9
+
+```{r}
+library(mosaicData)
+library(ISLR)
+library(glmnet)
+data(College)
+library(pls)
+
+
+
+# a) 
+train = sample(1:nrow(College), size = ((nrow(College)))/2 )
+col_train <- College[train, ]
+col_test <- College[-train,]
+col_test <- col_test[1:nrow(col_test)-1, ]
+
+
+# b) 
+mod_lin = lm(Apps ~ ., data = col_train)
+preds = predict(mod_lin, newdata = col_test)
+mean( (col_test$Apps - preds)^2 )
+
+#### 1312357 
+
+# c) 
+train_ridge = model.matrix(Apps ~ ., data = col_train)
+mod_rid = cv.glmnet(train_ridge, col_test$Apps, alpha = 0)
+lam = mod_rid$lambda.min
+
+testing_ridge = model.matrix(Apps~., data = col_train)
+preds = predict(mod_rid, newx = testing_ridge, s = lam)
+mean((col_test$Apps - preds)^2)
+
+
+# d) LASSO 
+
+train_ridge = model.matrix(Apps ~ ., data = col_train)
+mod_rid = cv.glmnet(train_ridge, col_test$Apps, alpha = 1)
+lam = mod_rid$lambda.min
+
+testing_ridge = model.matrix(Apps~., data = col_train)
+preds = predict(mod_rid, newx = testing_ridge, s = lam)
+mean((col_test$Apps - preds)^2)
+
+
+# e) 
+mod_pcr = pcr(Apps~., data = col_train, validation = "CV")
+validationplot(mod_pcr, val.type = "MSEP")
+
+preds <- predict(mod_pcr,  newdata = col_test, ncomp = 3)
+mean((col_test$Apps - preds)^2)
+
+
+# f) 
+mod_pls = plsr(Apps~. , data = col_train, validation = "CV")
+#validationplot(mod_pls, val.type = "MSEP")
+preds <- predict(mod_pls,  newdata = col_test, ncomp = 3)
+mean((col_test$Apps - preds)^2)
+
+
+# g) 
+## It looks like the linear model has the lowest error. However, the error in general is very large and our prediction isn't so accurate
+```
+

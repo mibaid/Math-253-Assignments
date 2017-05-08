@@ -80,8 +80,6 @@ Auto.test = Auto[test, ]
 mpg01.test = Auto$mpg01[test]
 train.mpg01 = factor(Auto$mpg01[train])
 
-
-set.seed(1)
 #knn.pred = knn(Auto.train, Auto.test, train.mpg01, k = 1)
 ```
 
