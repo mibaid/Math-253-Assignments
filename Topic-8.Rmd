@@ -1,2 +1,53 @@
 # Topic 8 Exercises: Tree-based models
 
+
+### 8.4.12 
+
+```{r}
+library(ISLR)
+data(College)
+library(randomForest)
+library(gbm)
+
+train = sample(1:nrow(College), size = ((nrow(College)))/2 )
+col_train = College[train, ]
+col_test = College[-train,]
+col_test = col_test[1:nrow(col_test)-1, ]
+
+
+## Boosting 
+boosting_train = gbm(Apps ~ . , data = col_train, distribution = "gaussian", n.trees = 5000, interaction.depth = 2)
+
+preds <- predict(boosting_train, newdata = col_test, n.trees = 5000)
+error_boost <- mean((col_test$Apps - preds)^2)
+error_boost
+
+
+## Bagging 
+
+bag_train = randomForest(Apps ~ . , data=col_train,  mtry = ncol(College) - 1, importance = TRUE)
+preds = predict(bag_train, newdata = col_test )
+error_bag = mean(( col_test$Apps - preds)^2)
+error_bag
+
+
+
+## Random Forests 
+randF_train = randomForest(Apps ~ . , data=col_train, mtry = ncol(College) / 3, importance = TRUE)
+preds = predict(randF_train, newdata = col_test)
+error_randF = mean((col_test$Apps - preds)^2)
+error_randF
+
+
+# Linear
+lm <- lm(Apps ~ . , data= col_train)
+preds <- predict(lm, newdata = col_test)
+error_lm <- mean((col_test$Apps - preds)^2)
+error_lm
+
+
+## It looks like LM is performing better! 
+```
+
+
+
